@@ -1,0 +1,34 @@
+{
+    "name": "thuata/userbundle",
+    "license": "MIT",
+    "type": "symfony-bundle",
+    "description": "User bundle for symfony",
+    "authors": [
+        {
+            "name": "Anthony Maudry",
+            "email": "anthony.maudry@thuata.com",
+            "homepage": "http://www.thuata.com/"
+        }
+    ],
+    "autoload": {
+        "psr-4": { "Thuata\\UserBundle\\": "" }
+    },
+    "require": {
+        "php": ">=5.5",
+        "thuata/frameworkbundle" : "dev-master"
+    },
+    "require-dev": {
+        "sensio/generator-bundle": "~2.3"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "master"
+        }
+    },
+    "repositories" : [
+        {
+            "type" : "git",
+            "url" : "git@github.com:Thuata/FrameworkBundle.git"
+        }
+    ]
+}

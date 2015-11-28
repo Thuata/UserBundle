@@ -1,0 +1,29 @@
+## User Superclass definition
+Thuata\UserBundle\User:
+    type: entity
+    indexes:
+        email_index:
+            columns: [ email ]
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        email:
+            type: string
+            length: 255
+            unique: true
+        firstName:
+            type: string
+            length: 255
+        lastName:
+            type: string
+            length: 255
+        password:
+            type: string
+            length: 255
+        salt:
+            type: string
+            length: 255
+        acl:
+            type: integer

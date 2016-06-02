@@ -25,5 +25,4 @@ class UserManager extends AbstractManager
     {
         return User::class;
     }
-
 }

@@ -1,0 +1,29 @@
+Thuata\UserBundle\Entity\Address:
+    type: entity
+    table: null
+    repositoryClass: Thuata\UserBundle\Repository\AddressRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        street:
+            type: string
+            length: 255
+        secondaryStreet:
+            type: string
+            length: 255
+            nullable: true
+        zipCode:
+            type: string
+            length: 255
+            column: ZipCode
+        city:
+            type: string
+            length: 255
+        country:
+            type: string
+            length: 255
+    lifecycleCallbacks: {  }

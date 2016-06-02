@@ -36,16 +36,6 @@ abstract class User extends AbstractEntity implements UserInterface, Timestampab
     /**
      * @var string
      */
-    protected $firstName;
-
-    /**
-     * @var string
-     */
-    protected $lastName;
-
-    /**
-     * @var string
-     */
     protected $password;
 
     /**

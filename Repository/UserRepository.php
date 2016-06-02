@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace Thuata\UserBundle\Entity;
+namespace Thuata\UserBundle\Repository;
 
 use Thuata\FrameworkBundle\Repository\AbstractRepository;
 

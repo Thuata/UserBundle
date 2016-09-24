@@ -27,13 +27,14 @@ namespace Thuata\UserBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Thuata\UserBundle\Component\AclMapper;
 
 /**
  * Class ThuataUserExtension
  *
  * @package thuata\userbundle\DependencyInjection
  *
- * @author Anthony Maudry <anthony.maudry@thuata.com>
+ * @author  Anthony Maudry <anthony.maudry@thuata.com>
  */
 class ThuataUserExtension extends Extension
 {
@@ -42,7 +43,17 @@ class ThuataUserExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        die(var_dump($configs));
-    }
+        $configuration = new Configuration();
+        $config = $this->processConfiguration($configuration, $configs);
 
+        $aclMapper = AclMapper::getInstance();
+
+        foreach ($config['roles'] as $name => $role) {
+            $aclMapper->addRole($name, $role['value'], $role['human']);
+        }
+
+        foreach ($config['meta'] as $name => $roles) {
+            $aclMapper->addMetaRole($name, $roles);
+        }
+    }
 }

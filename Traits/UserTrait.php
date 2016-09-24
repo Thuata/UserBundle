@@ -6,22 +6,26 @@
  * and open the template in the editor.
  */
 
-namespace Thuata\UserBundle\Entity;
+namespace Thuata\UserBundle\Traits;
 
-use Thuata\FrameworkBundle\Entity\AbstractEntity;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Thuata\FrameworkBundle\Entity\Interfaces\TimestampableInterface;
+use Thuata\ComponentBundle\SoftDelete\SoftDeletableTrait;
 use Thuata\FrameworkBundle\Entity\Traits\TimestampableTrait;
+use Thuata\UserBundle\Interfaces\UserInterface;
+use Thuata\UserBundle\Component\AclMapper;
 
 /**
- * User super class. Provides mechanics for user
+ * <b>UserTrait</b><br>
+ * Defines the methods from \Thuata\UserBundle\Entity\UserInterface
  *
- * @author Anthony Maudry <anthony.maudry@thuata.com>
+ * @package Thuata\UserBundle\Entity
+ *
+ * @author  Anthony Maudry <anthony.maudry@thuata.com>
  */
-abstract class User extends AbstractEntity implements UserInterface, TimestampableInterface
+trait UserTrait
 {
 
-    use TimestampableTrait;
+    use TimestampableTrait,
+        SoftDeletableTrait;
 
     /**
      * @var integer
@@ -46,7 +50,7 @@ abstract class User extends AbstractEntity implements UserInterface, Timestampab
     /**
      * @var integer
      */
-    protected $acl;
+    protected $roles;
 
     /**
      * Gets the id
@@ -63,7 +67,7 @@ abstract class User extends AbstractEntity implements UserInterface, Timestampab
      *
      * @param string $email
      *
-     * @return \Thuata\UserBundle\Entity\User
+     * @return UserInterface
      */
     public function setEmail($email)
     {
@@ -83,59 +87,11 @@ abstract class User extends AbstractEntity implements UserInterface, Timestampab
     }
 
     /**
-     * Sets the first name
-     *
-     * @param string $firstName
-     *
-     * @return \Thuata\UserBundle\Entity\User
-     */
-    public function setFirstName($firstName)
-    {
-        $this->firstName = (string) $firstName;
-
-        return $this;
-    }
-
-    /**
-     * Gets the first name
-     *
-     * @return string
-     */
-    public function getFirstName()
-    {
-        return $this->firstName;
-    }
-
-    /**
-     * Sets the last name
-     *
-     * @param string $lastName
-     *
-     * @return \Thuata\UserBundle\Entity\User
-     */
-    public function setLastName($lastName)
-    {
-        $this->lastName = (string) $lastName;
-
-        return $this;
-    }
-
-    /**
-     * Gets the last name
-     *
-     * @return string
-     */
-    public function getLastName()
-    {
-        return $this->lastName;
-    }
-
-    /**
      * Sets the password
      *
      * @param string $password
      *
-     * @return \Thuata\UserBundle\Entity\User
+     * @return UserInterface
      */
     public function setPassword($password)
     {
@@ -159,7 +115,7 @@ abstract class User extends AbstractEntity implements UserInterface, Timestampab
      *
      * @param string $salt
      *
-     * @return \Thuata\UserBundle\Entity\User
+     * @return UserInterface
      */
     public function setSalt($salt)
     {
@@ -181,13 +137,27 @@ abstract class User extends AbstractEntity implements UserInterface, Timestampab
     /**
      * Sets the acl
      *
-     * @param integer $acl
+     * @param integer $roles
      *
-     * @return \Thuata\UserBundle\Entity\User
+     * @return UserInterface
      */
-    public function setAcl($acl)
+    public function setBinaryRoles($roles)
     {
-        $this->acl = (int) $acl;
+        $this->roles = (int) $roles;
+
+        return $this;
+    }
+
+    /**
+     * Adds a role to the acl
+     *
+     * @param integer $roles
+     *
+     * @return UserInterface
+     */
+    public function addBinaryRoles($role)
+    {
+        $this->roles |= (int) $role;
 
         return $this;
     }
@@ -197,9 +167,9 @@ abstract class User extends AbstractEntity implements UserInterface, Timestampab
      *
      * @return integer
      */
-    public function getAcl()
+    public function getBinaryRoles()
     {
-        return $this->acl;
+        return $this->roles;
     }
 
     /**
@@ -209,12 +179,18 @@ abstract class User extends AbstractEntity implements UserInterface, Timestampab
      *
      * @return string
      */
-    abstract protected function convertBitToRole($bit);
+    protected function convertBitToRole($bit)
+    {
+        return AclMapper::getInstance()->getRoleFromBitRole($bit);
+    }
 
     /**
      * Converts a string role to the correspondint bit
      */
-    abstract protected function convertRoleToBit($role);
+    protected function convertRoleToBit($role)
+    {
+        return AclMapper::getInstance()->getBitFromRole($role);
+    }
 
     /**
      * Erases the password and salt
@@ -236,12 +212,12 @@ abstract class User extends AbstractEntity implements UserInterface, Timestampab
         $roles = [];
 
         do {
-            if (($this->getAcl() & $bit) == $bit) {
+            if (($this->getBinaryRoles() & $bit) == $bit) {
                 $roles[] = $this->convertBitToRole($bit);
             }
-        } while ($bit <= $this->getAcl());
+        } while ($bit <= $this->getBinaryRoles());
 
-        return roles;
+        return $roles;
     }
 
     /**
@@ -252,15 +228,5 @@ abstract class User extends AbstractEntity implements UserInterface, Timestampab
     public function getUsername()
     {
         return $this->getEmail();
-    }
-
-    /**
-     * Gets the full name
-     *
-     * @return string
-     */
-    public function getFullName()
-    {
-        return sprintf('%s %s', $this->getFirstName(), $this->getLastName());
     }
 }

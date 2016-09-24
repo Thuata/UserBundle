@@ -32,7 +32,7 @@ namespace Thuata\UserBundle\Exception;
  *
  * @author Anthony Maudry <anthony.maudry@thuata.com>
  */
-class AclExistingValueExceprion extends \Exception
+class AclExistingValueException extends \Exception
 {
     const MESSAGE_FORMAT = 'A role for the value "%s" already exist. Added role "%s" but role "%s" as already that value.';
     const ERROR_CODE = 500;

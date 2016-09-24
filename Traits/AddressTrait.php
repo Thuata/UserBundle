@@ -5,7 +5,7 @@ namespace Thuata\UserBundle\Entity;
 /**
  * Address
  */
-class Address
+trait AddressTrait
 {
     /**
      * @var int

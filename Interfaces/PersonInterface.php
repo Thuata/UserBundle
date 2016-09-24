@@ -23,7 +23,7 @@
  * THE SOFTWARE.
  */
 
-namespace thuata\userbundle\Interfaces;
+namespace Thuata\UserBundle\Interfaces;
 
 /**
  * Class PersonInterface
@@ -32,28 +32,28 @@ namespace thuata\userbundle\Interfaces;
  *
  * @author Anthony Maudry <anthony.maudry@thuata.com>
  */
-interface PersonInterface extends UserableInterface
+interface PersonInterface extends UserInterface
 {
     /**
      * Gets the first name
      *
      * @return string
      */
-    public function getFirstname();
+    public function getFirstName();
 
     /**
      * Gets the last name
      *
      * @return string
      */
-    public function getLastname();
+    public function getLastName();
 
     /**
      * Gets the date of birth
      *
      * @return \DateTime
      */
-    public function getBirthdate();
+    public function getBirthDate();
 
     /**
      * Gets the age
@@ -66,7 +66,7 @@ interface PersonInterface extends UserableInterface
 
     /**
      *
-     * @return Address
+     * @return AddressInterface
      */
     public function getAddress();
 }

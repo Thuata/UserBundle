@@ -23,28 +23,27 @@
  * THE SOFTWARE.
  */
 
-namespace Thuata\UserBundle\Interfaces;
+namespace thuata\userbundle\Tests;
 
-use Thuata\UserBundle\Entity\User;
-use Thuata\UserBundle\Entity\UserInterface;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 /**
- * Interface UserableInterface
- * @package Thuata\UserBundle\Interfaces
+ * <b>AclMapperTest</b><br>
+ *
+ *
+ * @package thuata\userbundle\Tests
+ *
+ * @author  Anthony Maudry <anthony.maudry@thuata.com>
  */
-interface UserableInterface
+class AclMapperTest extends KernelTestCase
 {
-    /**
-     * Gets the user object
-     *
-     * @return \Thuata\UserBundle\Interfaces\UserInterface
-     */
-    public function getUser();
+    public function setUp()
+    {
+        self::bootKernel();
+    }
 
-    /**
-     * @param \Thuata\UserBundle\Interfaces\UserInterface $user
-     *
-     * @return UserableInterface
-     */
-    public function setUser(\Thuata\UserBundle\Interfaces\UserInterface $user);
+    public function test_AclMapperAdd()
+    {
+
+    }
 }

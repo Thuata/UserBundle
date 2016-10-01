@@ -15,7 +15,7 @@
     },
     "require": {
         "php": ">=5.5",
-        "thuata/frameworkbundle" : ">=1.0"
+        "thuata/frameworkbundle" : "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

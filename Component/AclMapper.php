@@ -104,8 +104,10 @@ class AclMapper
             throw new AclInvalidValueException($value);
         }
 
-        if ($this->getRoleFromBitRole($value)) {
-            throw new AclExistingValueException($value, $name, $this->getRoleFromBitRole($value));
+        $role = $this->getRoleFromBitRole($value);
+
+        if ($role  and $role !== $name) {
+            throw new AclExistingValueException($value, $name, $role);
         }
 
         $this->rolesRegistry[ $name ] = $value;

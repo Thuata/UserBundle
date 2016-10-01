@@ -27,6 +27,7 @@ namespace Thuata\UserBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Symfony\Component\VarDumper\VarDumper;
 use Thuata\UserBundle\Component\AclMapper;
 
 /**

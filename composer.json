@@ -14,7 +14,7 @@
         "psr-4": { "Thuata\\UserBundle\\": "" }
     },
     "require": {
-        "php": ">=5.5",
+        "php": "~7.1",
         "thuata/frameworkbundle" : "dev-master"
     },
     "require-dev": {
